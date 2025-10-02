@@ -212,7 +212,7 @@
         <script src="assets/js/main.js"></script>
 
         <!--===== SCRIPT FOR FORM =====-->
-        <script>
+        <!-- <script>
 document.getElementById("contactForm").addEventListener("submit", async function(e){
     e.preventDefault(); // stop default form submission
     
@@ -269,7 +269,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
       formMsg.textContent = "⚠️ Error: Unable to connect. Please retry.";
     }
 });
-</script>
+</script> -->
 <script>
 document.getElementById("contactForm").addEventListener("submit", async function(e){
     e.preventDefault(); // stop default form submission
@@ -311,7 +311,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
 
     // Send form data to Formspree
     try {
-      const response = await fetch("https://formspree.io/f/yourFormID", {
+      const response = await fetch("https://formspree.io/f/xzzjgrrp", {
         method: "POST",
         body: new FormData(this),
         headers: { "Accept": "application/json" }
