@@ -1,136 +1,215 @@
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <head>
-<title>Please Login to Continue...</title>
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- <meta name="google-site-verification" content="sMWz0ut7HwkLRBISsmEyn3sLyYB1IVwGs-pfgftnNrI" /> -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Komal Deep Shenmar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f1724; /* deep navy */
+      --bg2:#081225; /* darker */
+      --glass: rgba(255,255,255,0.06);
+      --accent1:#ff7ab6; /* pink */
+      --accent2:#7ae1ff; /* cyan */
+      --name-size: clamp(2.2rem, 8vw, 4.6rem);
+      --card-w: min(880px, 92%);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(122,225,255,0.06), transparent 6%),
+                  radial-gradient(900px 450px at 85% 90%, rgba(255,122,182,0.05), transparent 8%),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:#fff;
+      overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+      min-height:100vh;
+    }
 
+    /* decorative floating blobs */
+    .blob{
+      position:absolute;filter:blur(40px);opacity:0.55;mix-blend-mode:screen;pointer-events:none;
+      transform: translate3d(0,0,0);
+    }
+    .blob.a{width:420px;height:420px;background:linear-gradient(135deg,var(--accent1),#ffd19f);left:-10%;top:-6%;}
+    .blob.b{width:360px;height:360px;background:linear-gradient(135deg,var(--accent2),#bdefff);right:-8%;bottom:-12%;}
+    .blob.c{width:240px;height:240px;background:linear-gradient(135deg,#9b7aff,#ff7ab6);left:50%;top:8%;opacity:0.25;transform:translateX(-50%);}    
+
+    /* animated orbital particles */
+    .orbit-wrap{position:absolute;inset:0;pointer-events:none}
+    .particle{position:absolute;width:8px;height:8px;border-radius:50%;background:linear-gradient(180deg,var(--accent2),var(--accent1));opacity:0.9;box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+
+    /* center card */
+    .card{
+      width:var(--card-w);
+      max-width:100%;
+      padding:clamp(28px,4vw,48px);
+      border-radius:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      box-shadow: 0 8px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(8px) saturate(120%);
+      border: 1px solid rgba(255,255,255,0.04);
+      display:flex;align-items:center;justify-content:center;flex-direction:column;
+      transform: translate3d(0,0,0);
+    }
+
+    .name{
+      font-weight:900;
+      font-size:var(--name-size);
+      letter-spacing: -0.02em;
+      line-height:1;
+      text-align:center;
+      margin:0;
+      padding:0;
+      background: linear-gradient(90deg,var(--accent1),var(--accent2));
+      -webkit-background-clip: text;
+      background-clip:text;
+      color:transparent;
+      text-shadow: 0 6px 30px rgba(124,58,237,0.08);
+    }
+
+    /* subtle animated underline made of gradient */
+    .underline{
+      margin-top:16px;
+      width:60%;min-width:180px;height:6px;border-radius:999px;opacity:0.9;
+      background: linear-gradient(90deg,var(--accent1),var(--accent2));
+      filter:blur(6px);
+      transform-origin:center;
+      animation: pulse 3.6s ease-in-out infinite;
+    }
+    @keyframes pulse{0%,100%{transform:scaleX(0.9);opacity:0.85}50%{transform:scaleX(1.05);opacity:1}}
+
+    /* tilt/float micro animation */
+    .card{transition:transform .25s ease, box-shadow .25s ease}
+    .card.float{transform: translateY(-8px) rotateX(3deg) rotateY(-2deg);box-shadow:0 18px 60px rgba(2,6,23,0.7)}
+
+    /* footer badges (icon only) */
+    .badges{display:flex;gap:12px;margin-top:22px}
+    .badge{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.02);display:grid;place-items:center;backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03)}
+    .badge svg{width:20px;height:20px}
+
+    /* responsive tweaks */
+    @media (max-width:520px){
+      .card{padding:20px;border-radius:16px}
+      .underline{width:80%}
+      .badges{gap:10px}
+      .blob.a{display:none}
+    }
+
+    /* tiny screen polish */
+    @media (prefers-reduced-motion:reduce){
+      .blob,.particle,.underline{animation:none;transition:none}
+    }
+  </style>
 </head>
-
-<style>
-
-body {
-
-	background-image: url('grunge_patterns.jpg');
-	background-attachment: fixed;
-	color: #333;
-}
-
-.box {
-	border-radius: 3px;
-	background: rgba(101, 101, 101, 0.7); margin: auto; padding: 12px;
-}
-
-.lightbox {
-	zoom: 1.5;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(10, 10, 10, 0.8);
-	text-align: center;
-	margin: auto;
-
-}
-
-div.horizontal {
-	display: flex;
-	justify-content: center;
-	height: 100%;
-}
-
-div.vertical {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	width: 100%;
-}
-
-::-webkit-input-placeholder {
-   color: #955;
-   text-align: center;
-}
-
-::-moz-placeholder {
-   color: #955;
-   text-align: center;
-}
-
-:-ms-input-placeholder {
-   color: #955;
-   text-align: center;
-}
-
-</style>
-
 <body>
+  <!-- decorative blurred blobs -->
+  <div class="blob a" aria-hidden="true"></div>
+  <div class="blob b" aria-hidden="true"></div>
+  <div class="blob c" aria-hidden="true"></div>
 
-	<div id="loginbox" class="lightbox" >
-		<div class="horizontal">
-			<div class="vertical">
-				<div class="box">
-					<input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="Enter Password" /> <br />
-					<button id="loginbutton" type="button">Enter</button>
-					<p id="wrongPassword" style="display: none">Wrong Password</p>
-				</div>
-			</div>
-		</div>
-	</div>
+  <!-- orbital particles container -->
+  <div class="orbit-wrap" id="orbit"></div>
 
+  <!-- main card (only visible text is the name) -->
+  <main class="card" id="card" role="main" aria-label="Landing">
+    <h1 class="name" id="hero">Komal Deep Shenmar</h1>
+    <div class="underline" aria-hidden="true"></div>
+    <div class="badges" aria-hidden="true">
+      <!-- decorative icon-only badges (no visible text) -->
+      <!-- <div class="badge" title="decorative"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c.6 0 1 .4 1 1v18c0 .6-.4 1-1 1s-1-.4-1-1V3c0-.6.4-1 1-1z" fill="currentColor" opacity="0.9"/><path d="M4.2 6.2c.4-.4 1-.4 1.4 0L8.5 9c.4.4.4 1 0 1.4l-2.9 2.9c-.4.4-1 .4-1.4 0l-2-2c-.4-.4-.4-1 0-1.4L4.2 6.2z" fill="currentColor" opacity="0.8"/></svg></div>
+      <div class="badge" title="decorative"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.2" opacity="0.9"/><path d="M8 13l2.5-3L14 15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div> -->
+    </div>
+  </main>
 
+  <script>
+    // ---- Particle orbital system ----
+    (function(){
+      const wrap = document.getElementById('orbit');
+      const count = Math.min(20, Math.floor((window.innerWidth + window.innerHeight)/120));
+      const particles = [];
+      for(let i=0;i<count;i++){
+        const p = document.createElement('div');
+        p.className='particle';
+        const size = 4 + Math.random()*12;
+        p.style.width = size+'px'; p.style.height = size+'px';
+        p.style.opacity = 0.4 + Math.random()*0.8;
+        wrap.appendChild(p);
+        particles.push({el:p, angle:Math.random()*Math.PI*2, r:60+Math.random()*Math.min(window.innerWidth, window.innerHeight)/2, speed:0.0006+Math.random()*0.0016});
+      }
+      let last = performance.now();
+      function tick(now){
+        const dt = now-last; last=now;
+        particles.forEach((pt,idx)=>{
+          pt.angle += pt.speed * dt;
+          const cx = window.innerWidth/2;
+          const cy = window.innerHeight/2;
+          const x = cx + Math.cos(pt.angle) * pt.r * (1 + 0.06*Math.sin(now/2000 + idx));
+          const y = cy + Math.sin(pt.angle) * pt.r * (1 + 0.06*Math.cos(now/1800 + idx));
+          pt.el.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
 
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    // ---- Card micro-interactions: tilt on mousemove & device orientation ----
+    (function(){
+      const card = document.getElementById('card');
+      let rect = card.getBoundingClientRect();
+      function onMove(x,y){
+        const cx = rect.left + rect.width/2;
+        const cy = rect.top + rect.height/2;
+        const dx = (x - cx)/rect.width; // -0.5 .. 0.5
+        const dy = (y - cy)/rect.height;
+        const rx = clamp(dy * -8, -12, 12);
+        const ry = clamp(dx * 14, -14, 14);
+        card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0px)`;
+      }
+      function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+      window.addEventListener('mousemove', (e)=>{rect = card.getBoundingClientRect(); onMove(e.clientX,e.clientY)});
+      // mobile device orientation
+      window.addEventListener('deviceorientation', (ev)=>{
+        if(ev.gamma==null) return;
+        const gx = ev.gamma; // left-right [-90,90]
+        const gy = ev.beta;  // front-back [-180,180]
+        const rx = clamp((gy-10)/6, -12, 12);
+        const ry = clamp(gx/6, -12, 12);
+        card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      }, true);
 
+      // slight float on hover / touch
+      ['mouseenter','touchstart'].forEach(ev=>{
+        document.addEventListener(ev, ()=>card.classList.add('float'))
+      });
+      ['mouseleave','touchend','touchcancel'].forEach(ev=>{
+        document.addEventListener(ev, ()=>card.classList.remove('float'))
+      });
 
-	 <script type="text/javascript" src="https://rawcdn.githack.com/chrisveness/crypto/7067ee62f18c76dd4a9d372a00e647205460b62b/sha1.js"></script>
+      // accessibility: respect reduced motion
+      const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if(media.matches){card.style.transition='none'}
+    })();
 
-	<script type="text/javascript">
-	"use strict";
+    // ---- subtle idle animation on the name text ----
+    (function(){
+      const hero = document.getElementById('hero');
+      let phase=0;
+      function shimmer(){
+        phase += 0.01;
+        hero.style.filter = `drop-shadow(0 ${6+Math.sin(phase)*2}px ${18+Math.cos(phase)*4}px rgba(124,58,237,0.06))`;
+        requestAnimationFrame(shimmer);
+      }
+      requestAnimationFrame(shimmer);
+    })();
 
-
-	function loadPage(pwd) {
-
-		var hash= pwd;
-		hash= Sha1.hash(pwd);
-		var url= hash + "/index.html";
-
-		$.ajax({
-			url : url,
-			dataType : "html",
-			success : function(data) {
-
-				window.location= url;
-
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-
-
-				parent.location.hash= hash;
-
-				//$("#wrongPassword").show();
-				$("#password").attr("placeholder","Wrong Password");
-				$("#password").val("");
-			}
-		});
-	}
-
-
-	$("#loginbutton").on("click", function() {
-		loadPage($("#password").val());
-	});
-	$("#password").keypress(function(e) {
-		if (e.which == 13) {
-
-			loadPage($("#password").val());
-		}
-	});
-	$("#password").focus();
-
-	</script>
-
+  </script>
 </body>
 </html>
